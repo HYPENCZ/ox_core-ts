@@ -37,7 +37,7 @@ export function CreateCharacter(
 
 export function GetCharacters(userId: number) {
   return db.execute<Character>(
-    'SELECT charId, stateId, firstName, lastName, x, y, z, heading, DATE_FORMAT(lastPlayed, "%d/%m/%Y") AS lastPlayed FROM characters WHERE userId = ? AND deleted IS NULL LIMIT ?',
+    'SELECT charId, stateId, firstName, lastName, x, y, z, heading, DATE_FORMAT(lastPlayed, "%d.%m.%Y") AS lastPlayed FROM characters WHERE userId = ? AND deleted IS NULL LIMIT ?',
     [userId, CHARACTER_SLOTS]
   );
 }
@@ -63,7 +63,7 @@ export function GetCharacterMetadata(charId: number) {
     armour: number;
     statuses: Dict<number>;
   }>(
-    'SELECT isDead, gender, DATE_FORMAT(dateOfBirth, "%d/%m/%Y") AS dateOfBirth, phoneNumber, health, armour, statuses FROM characters WHERE charId = ?',
+    'SELECT isDead, gender, DATE_FORMAT(dateOfBirth, "%d.%m.%Y") AS dateOfBirth, phoneNumber, health, armour, statuses FROM characters WHERE charId = ?',
     [charId]
   );
 }
