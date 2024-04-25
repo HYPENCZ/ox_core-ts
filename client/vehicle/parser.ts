@@ -55,6 +55,8 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
     }
 
     SetPedIntoVehicle(cache.ped, entity, -1);
+    SetVehicleModKit(entity, 0);
+
     const vehicleClass = GetVehicleClass(entity);
     let vehicleType: VehicleTypes;
 
@@ -92,6 +94,11 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
       doors: GetNumberOfVehicleDoors(entity),
       type: vehicleType,
       price: 0,
+      heightAboveGround: GetEntityHeightAboveGround(entity) - 11.0,
+      maxEngine: GetNumVehicleMods(entity, 11),
+      maxBrakes: GetNumVehicleMods(entity, 12),
+      maxTransmission: GetNumVehicleMods(entity, 13),
+      maxSuspension: GetNumVehicleMods(entity, 15),
     };
 
     console.log(index, model, `^3| ${data.make} ${data.name}^0`);

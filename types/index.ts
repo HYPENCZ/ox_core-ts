@@ -101,6 +101,11 @@ export interface VehicleData extends VehicleStats {
   seats: number;
   type: VehicleTypes;
   weapons?: true;
+  heightAboveGround: number;
+  maxEngine: number;
+  maxBrakes: number;
+  maxTransmission: number;
+  maxSuspension: number;
 }
 
 export interface OxStatus {
