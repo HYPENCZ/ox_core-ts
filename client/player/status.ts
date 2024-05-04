@@ -1,6 +1,6 @@
 import { OxPlayer, Statuses } from 'player';
 
-function UpdateStatuses() {
+function UpdateStatuses(updateNet: boolean) {
   for (const name in Statuses) {
     const status = Statuses[name];
 
@@ -16,13 +16,25 @@ function UpdateStatuses() {
   }
 
   emit('ox:statusTick', OxPlayer.getStatuses());
-  emitNet('ox:updateStatuses', OxPlayer.getStatuses());
+
+  if (updateNet) {
+    emitNet('ox:updateStatuses', OxPlayer.getStatuses());
+  }
 }
 
 on('ox:playerLoaded', () => {
+  let timer = 0;
+
   const id: CitizenTimer = setInterval(() => {
     if (!OxPlayer.isLoaded) return clearInterval(id);
 
-    UpdateStatuses();
+    timer++;
+
+    if (timer === 60) {
+      UpdateStatuses(true);
+      timer = 0;
+    } else {
+      UpdateStatuses(false);
+    };
   }, 1000);
 });
