@@ -1,4 +1,3 @@
-import { onClientCallback } from '@overextended/ox_lib/server';
 import { OxPlayer } from './class';
 import { sleep } from '@overextended/ox_lib';
 import { db } from 'db';
@@ -99,14 +98,6 @@ onNet('ox:setActiveCharacter', async (data: number | NewCharacter) => {
   if (!player) return;
 
   return await player.setActiveCharacter(data);
-});
-
-onClientCallback('ox:deleteCharacter', async (playerId, charId: number) => {
-  const player = OxPlayer.get(playerId);
-
-  if (!player) return;
-
-  return await player.deleteCharacter(charId);
 });
 
 on('ox:createdCharacter', async (playerId: number, userId: number, charId: number) => {
